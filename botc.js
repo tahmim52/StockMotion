@@ -5,7 +5,7 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 require('dotenv').config()
 const client = new Discord.Client()
 const prefix='!'
-
+//console.log('hello')
 client.on('message', async message => {
     // Prevent bot from responding to its own messages
     if (message.author.bot||!message.content.startsWith(prefix)) {
@@ -24,7 +24,7 @@ client.on('message', async message => {
             { name: '!stock', value: 'Use: `!stock <insert ticker symbol>`\n'+
                 'Displays values based in 1 min intervals'}, 
             { name: '!tone', value: 'Use: `!tone`, or `!tone <@user>` for other users\n'+
-               'Tones based on past 10 messages\n'+ 
+               'Tones based on past 10 messages, scores: 0-1\n'+ 
                'Only messages without attachments/custom emojis used'},
         )
         .setTimestamp();
@@ -113,7 +113,7 @@ client.on('message', async message => {
             const toneAnalyzer = new ToneAnalyzer({
             version: '2017-09-21',
             authenticator: new IamAuthenticator({
-                apikey: process.env.apikey_t,
+                apikey: process.env.apikey_ibm,
             }),
             url: process.env.website,
             });
@@ -180,7 +180,5 @@ client.on('message', async message => {
             });
         }
     }  
-    
- 
 })
 client.login(process.env.token)
